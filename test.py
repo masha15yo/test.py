@@ -20,7 +20,7 @@ def pirmais(par1, par2):
 def otrais():  #sakums = 0, beigas = 10, solis = 1
     esosais = 0
     ieprieksejais = 0
-    for i in range(10): #sakums, beigas, solis
+    for i in range(10): #range(sakums, beigas, solis)
         ieprieksejais = esosais
         esosais = i
         summa = ieprieksejais+esosais
