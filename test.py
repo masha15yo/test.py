@@ -1,122 +1,99 @@
-from inspect import isgetsetdescriptor
+def dienas_mekletajs (sis_gads, sis_menesis, sis_datums, si_diena, dz_gads, dz_menesis, dz_datums):
+    menesu_dienu_skaits = [31, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    dienu_nosaukumi = ["nekas", "pirmdiena", "otrdiena", "trešdiena", "ceturtdiena", "piektdiena", "sestdiena", "svētdiena"]
+    
+    #Skaitām, cik dienas ir pagājušas
+    #Pārbaude, vai šogad jau ir bijusi dzimšanas diena
+    
+
+    pagajusas_dienas = 0
+    pagajusie_gadi = sis_gads-dz_gads
+
+    if vai_datums_pagajis(sis_menesis, sis_datums, dz_menesis, dz_datums) == False:
+        pagajusie_gadi -=1
+
+    pagajusas_dienas += 365*pagajusie_gadi
+
+    garie_gadi = 0
+    sakuma_gads = dz_gads
+    if vai_datums_pagajis(dz_menesis, dz_datums, 2, 29):
+        sakuma_gads +=1
+
+    beigu_gads = sis_gads
+    if vai_datums_pagajis(sis_menesis, sis_datums, 2, 29) == False:
+        beigu_gads -=1
 
 
-def tests(parametrs):
-    a = parametrs #darbibas ar parametriem 
-    return a #funkcijas rezultats
+    for gads in range (sakuma_gads, beigu_gads+1):
+        if gads % 4 == 0:
+            garie_gadi +=1
+        if gads % 100 == 0 and gads % 400 != 0:
+            garie_gadi -=1
 
-#print(tests("kaķis"))
+    pagajusas_dienas += garie_gadi
 
-def pirmais(par1, par2):
-    reizinajums = par1*par2 
-    summa = par1+par2
-    if reizinajums<1000 :
-        return reizinajums
+    # cik pilni mēneši ir pagājuši kopš pēdējās dzimšanas dienas?
+    if sis_menesis>=dz_menesis:
+        pilni_menesi = sis_menesis-dz_menesis
     else:
-        return summa
+        pilni_menesi = sis_menesis+12-dz_menesis
 
-#print("The result is", pirmais(40,30) )
+    if vai_datums_pagajis(1, sis_datums, 1, dz_datums) == False:
+        pilni_menesi = pilni_menesi - 1
 
-def otrais():  #sakums = 0, beigas = 10, solis = 1
-    esosais = 0
-    ieprieksejais = 0
-    for i in range(10): #range(sakums, beigas, solis)
-        ieprieksejais = esosais
-        esosais = i
-        summa = ieprieksejais+esosais
-        print("Current Number", esosais, "Previous Number", ieprieksejais, "Sum:", summa)
-    return
+    dienas_menesos = 0
 
-#otrais() #0, 10, 1
+    menesis = dz_menesis
+    while menesis != sis_menesis:
+        print("Šis:", sis_menesis)
+        dienas_menesos += menesu_dienu_skaits[menesis]
+        print("skaititajs:", menesis)
+        menesis +=1
+        if menesis == 13:
+            menesis=1
 
-def tresais(teksts):
-    print("Sākotnējais teksts ir ", teksts)
-    print("Tikai pāra indeksa burti:")
-    for i in range(0, len(teksts), 2):
-        print (teksts[i])
-    return
+    pagajusas_dienas += dienas_menesos
 
-tresais("pynative")
-
-def ceturtais(teksts, n):
-    print("Teksts:", teksts)
-    print("Noņemt pirmos", n, "burtus sanāk:", teksts[n:])
-    return
-
-#ceturtais("pynative",4)
-
-def piektais(saraksts):
-    print("Dotais saraksts", saraksts)
-    print("Result is", saraksts[0]==saraksts[-1])
-    return
-
-skaitli1 = [10,20,30,40,10]
-skaitli2 = [75,65,35,75,30]
-
-#piektais(skaitli1)
-
-def sestais(saraksts):
-    print("dotais saraksts:", saraksts)
-    print("Ar 5 dalās:")
-    for elements in saraksts:
-        if elements%5 == 0:
-            print(elements)
-    return
-
-# skaitli = [40, 65, 32, 88, 345, -5]
-# sestais(skaitli)
-
-def astotais(n):
-    for i in range(1,n+1): # no 1 līdz n i mainīs vērtību
-        for j in range (i):
-            print(i, end = " ")
-        print()
-    return
-
-# astotais(8)
-
-def devitais(skaitlis):
-    teksta_forma = str(skaitlis)
-    for i in range(len(teksta_forma)):
-        if teksta_forma[i]!=teksta_forma[-1-i]:
-            print("nav palindroms")
-            return
-    print("ir palindroms")
-    return
-
-# devitais("aka")
-
-def desmitais(saraksts1, saraksts2):
-    jaunais_saraksts = []
-    for elements in saraksts1:
-        if elements % 2 == 0:
-            jaunais_saraksts.append(elements)
-    for elements in saraksts2:
-        if elements % 2 == 1:
-            jaunais_saraksts.append(elements)
-    print("pirmais saraksts:", saraksts1)
-    print ("otrais saraksts:", saraksts2)
-    print("apvienotais saraksts:", jaunais_saraksts)
-    return
-
-# sar1 = [13, 15, 132, 45, 88]
-# sar2 = [42, 15, 123, 44, 93]
-# desmitais(sar1, sar2)
-
-def pedejais(n):
-    for i in range(n, 0, -1):
-        for j in range (i):
-            print("*", end = " ")
-        print()
-    return
-
-# pedejais(7)
-
-def pedejais_ar_rekursiju(n):
-    if n == 1:
-        print("* ")
+    if sis_datums>=dz_datums:
+        ekstra_dienas = sis_datums-dz_datums
     else:
-        print ("* "*n)
-        pedejais_ar_rekursiju(n-1)
+        ekstra_dienas = sis_datums + menesu_dienu_skaits[sis_menesis-1] - dz_datums
 
-pedejais_ar_rekursiju(5)
+    pagajusas_dienas += ekstra_dienas
+
+    print("Kopš dzimšanas ir pagājušas: ", pagajusas_dienas, " dienas.")
+    # cik dienas ir kopā pa tiem mēnešiem?
+    # cik dienas ir pagājušas nepilnajā mēnesī?
+
+    dienu_atlikums = pagajusas_dienas % 7
+
+    dz_diena = si_diena-dienu_atlikums
+    
+    if dz_diena <=0:
+        dz_diena +=7
+
+    print("Jums ir ", pagajusie_gadi, " gadi, ", pilni_menesi, " menesi un ", ekstra_dienas, " dienas")
+
+
+    return dienu_nosaukumi[dz_diena]
+
+
+def vai_datums_pagajis(tagad_menesis, tagad_datums, salidzinamais_menesis, salidzinamais_datums):
+    if tagad_menesis>salidzinamais_menesis:
+        return True
+    if tagad_menesis<salidzinamais_menesis:
+        return False
+    if tagad_datums>salidzinamais_datums:
+        return True
+    return False
+    
+
+dz_g = int(input("Lūdzu ievadiet savu dzimšanas gadu!:"))
+dz_m = int(input("Lūdzu ievadiet savu dzimšanas mēnesi!:"))
+dz_d = int(input("Lūdzu ievadiet savu dzimšanas datumu!:"))
+sis_g = int(input("Lūdzu ievadiet pašreizējo gadu!:"))
+sis_m = int(input("Lūdzu ievadiet pašreizējo mēnesi!:"))
+sis_d = int(input("Lūdzu ievadiet pašreizējo datumu!:"))
+sis_n = int(input("Lūdzu ievadiet pašreizējo nedēļas dienu!:"))
+
+print(dienas_mekletajs(sis_g, sis_m, sis_d, sis_n, dz_g, dz_m, dz_d))
