@@ -87,13 +87,27 @@ def vai_datums_pagajis(tagad_menesis, tagad_datums, salidzinamais_menesis, salid
         return True
     return False
     
+def datu_parbaude (gads_dz, menesis_dz, datums_dz, gads_sis, menesis_sis, datums_sis, diena_sis):
+    pareizi_dati = True
+    if gads_dz<=0 or menesis_dz<=0 or datums_dz<=0 or gads_sis<=0 or menesis_sis<=0 or datums_sis<=0 or diena_sis<=0:
+        pareizi_dati = False
+    
+    #Visas citas datu pārbaudes
 
-dz_g = int(input("Lūdzu ievadiet savu dzimšanas gadu!:"))
-dz_m = int(input("Lūdzu ievadiet savu dzimšanas mēnesi!:"))
-dz_d = int(input("Lūdzu ievadiet savu dzimšanas datumu!:"))
-sis_g = int(input("Lūdzu ievadiet pašreizējo gadu!:"))
-sis_m = int(input("Lūdzu ievadiet pašreizējo mēnesi!:"))
-sis_d = int(input("Lūdzu ievadiet pašreizējo datumu!:"))
-sis_n = int(input("Lūdzu ievadiet pašreizējo nedēļas dienu!:"))
+    if pareizi_dati == False:
+        print("Nepareizi ievades dati!")
+    return pareizi_dati
 
-print(dienas_mekletajs(sis_g, sis_m, sis_d, sis_n, dz_g, dz_m, dz_d))
+
+atbilde = "y"
+while atbilde == "y":
+    dz_g = int(input("Lūdzu ievadiet savu dzimšanas gadu!:"))
+    dz_m = int(input("Lūdzu ievadiet savu dzimšanas mēnesi!:"))
+    dz_d = int(input("Lūdzu ievadiet savu dzimšanas datumu!:"))
+    sis_g = int(input("Lūdzu ievadiet pašreizējo gadu!:"))
+    sis_m = int(input("Lūdzu ievadiet pašreizējo mēnesi!:"))
+    sis_d = int(input("Lūdzu ievadiet pašreizējo datumu!:"))
+    sis_n = int(input("Lūdzu ievadiet pašreizējo nedēļas dienu!:"))
+    if datu_parbaude(dz_g, dz_m, dz_d, sis_g, sis_m, sis_d, sis_n):
+        print(dienas_mekletajs(sis_g, sis_m, sis_d, sis_n, dz_g, dz_m, dz_d))
+    atbilde = input("Vai mēģināt vēlreiz? ('y'/'n')")
