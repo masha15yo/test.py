@@ -17,3 +17,5 @@ Programmai jāaprēķina:
 2. Atlikums, dalot ar 7
 3. No šodienas dienas atņem to atlikumu
     3.1. Nevar būt negatīva diena
+    3.2. Nevar būt negatīvs mēnesis
+    3.3. Nevar būt negatīvs gads
