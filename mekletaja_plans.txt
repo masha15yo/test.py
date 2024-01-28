@@ -19,3 +19,8 @@ Programmai jāaprēķina:
     3.1. Nevar būt negatīva diena
     3.2. Nevar būt negatīvs mēnesis
     3.3. Nevar būt negatīvs gads
+    3.4. Nevar neko neievadīt
+    3.5. Nedēļas dienu skaits nevar pārsniegt 7
+    3.6. Nevar būt negatīvs rezultāts
+    3.7. Ievadītā mēneša dienas nevar pārsniegt tajā esošu dienu skaitu.
+    3.8. Ievadīt var tikai skaitļus
